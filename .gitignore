@@ -1,0 +1,9 @@
+/obj
+/RCDimC
+/RCDimCpp
+/testClient
+/xml
+/doc
+/libcppserver.so
+/.cproject
+*.svn
