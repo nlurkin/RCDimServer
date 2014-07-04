@@ -46,6 +46,9 @@ private:
 	//void handleWaiting(int i);
 	void handleConfig(string s);
 
+	bool mkdir_(string path);
+	bool exists_(string path);
+	bool rm_(string path);
 	//void sendNextFile();
 	//void endTransfer();
 	//void resetTransfer();

@@ -24,13 +24,13 @@ void moveToExpectedState();
 void setNextState(int nextState);
 void waitConfigurationFile(int expectedState);
 
-void publishConfig();
+void publishConfig(char* path);
 
 //###########################
 //To be implemented by user
 typedef struct configStruct_t configStruct;
 extern configStruct *fConfigStruct;
-extern void generateConfig(char* configString);
+extern void generateConfig(char* path);
 extern int main_loop();
 //###########################
 

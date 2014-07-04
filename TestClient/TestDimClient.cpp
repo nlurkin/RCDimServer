@@ -6,10 +6,12 @@
  */
 
 #include "TestDimClient.h"
-#include "dic.hxx"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 //#include "Version.h"
+#include <errno.h>
+#include <sys/stat.h>
 
 #define NONE "\x1b[0m"
 #define YELLOW "\x1b[43m"
@@ -117,7 +119,20 @@ void TestDimClient::reset() {
 }
 
 void TestDimClient::requestConfig(){
-	sendCommand((dimServerName + "/RequestConfig").c_str(), 1);
+	std::stringstream path;
+	path << "Configuration/Report/SubSystem/" << dimServerName;
+
+	if(!exists_(path.str())){
+		mkdir_("Configuration");
+		mkdir_("Configuration/Report");
+		mkdir_("Configuration/Report/SubSytem");
+		mkdir_(path.str());
+	}
+
+	path << "/report.xml";
+	if(exists_(path.str())) rm_(path.str());
+
+	sendCommand((dimServerName + "/RequestConfig").c_str(), path.str().c_str());
 }
 
 void TestDimClient::handleConfig(string s) {
@@ -138,8 +153,18 @@ void TestDimClient::sendFile(string fileName){
 	string content;
 	string path = "Configuration/Config/SubSystem/";
 	path += dimServerName;
+
+	if(!exists_(path)){
+		mkdir_("Configuration");
+		mkdir_("Configuration/Config");
+		mkdir_("Configuration/Config/SubSystem");
+		mkdir_(path);
+	}
+
 	path += "/";
 	path += fileName;
+	if(exists_(path)) rm_(path);
+
 	char *c = new char[1000];
 	cout << "Sending file " << fileName << endl;
 
@@ -223,4 +248,41 @@ void TestDimClient::test(){
 	sendCommand((dimServerName + "/FileContent").c_str(), "xxx");
 	sendCommand((dimServerName + "/EndTransfer").c_str(), 1);
 	sendCommand((dimServerName + "/FileContent").c_str(), "xxx");
+}
+
+bool TestDimClient::mkdir_(string path)
+{
+    struct stat st;
+    bool status = true;
+
+    if (stat(path.c_str(), &st) != 0)
+    {
+        /* Directory does not exist. EEXIST for race condition */
+        if (mkdir(path.c_str(), 0777) != 0 && errno != EEXIST)
+            status = false;
+    }
+    else if (!S_ISDIR(st.st_mode))
+    {
+        errno = ENOTDIR;
+        status = false;
+    }
+
+    return status;
+}
+
+bool TestDimClient::exists_(string path)
+{
+    struct stat st;
+    bool status = true;
+
+    if (stat(path.c_str(), &st) != 0)
+    {
+            status = false;
+    }
+
+    return status;
+}
+
+bool TestDimClient::rm_(string path){
+	return remove(path.c_str());
 }

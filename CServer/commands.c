@@ -12,6 +12,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+int fEnabled=1;
+
 /**
  * @file commands.c
  * Contains functions implementing the commands described in the note NA62-14-02
@@ -149,6 +151,11 @@ void doStdResetState(char tok[5][STRING_MAX_LENGTH]){
 void stdDimFileContent(long* tag, char* cmnd_buffer, int*size){
 	int success;
 
+	if(fEnabled!=0){
+		println("Ignoring FileContent");
+		return;
+	}
+
 	print("FileContent port receiving: ");
 	println(cmnd_buffer);
 
@@ -168,6 +175,14 @@ void stdDimFileContent(long* tag, char* cmnd_buffer, int*size){
 	}
 }
 
+void enableFileContent(){
+	fEnabled = 0;
+}
+
+void disableFileContent(){
+	fEnabled = 1;
+}
+
 /**
  * RequestConfig handler.
  *
@@ -178,10 +193,10 @@ void stdDimFileContent(long* tag, char* cmnd_buffer, int*size){
  */
 void stdDimRequestConfig(long* tag, char* cmnd_buffer, int*size){
 	print("RequestConfig port receiving: ");
-	printlni(*cmnd_buffer);
+	println(cmnd_buffer);
 
-	if(*cmnd_buffer==1){
-		publishConfig();
+	if(strlen(cmnd_buffer)>0){
+		publishConfig(cmnd_buffer);
 	}
 	else{
 		println("Unexpected value received from FileContent port.");

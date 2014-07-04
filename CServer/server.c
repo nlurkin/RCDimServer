@@ -65,8 +65,8 @@ void initCommands(char* dimServerName, void (*commandRoutine)(long int*,char*,in
 	if(fileContentRoutine==NULL) dis_add_cmnd(fileContentName, "C", stdDimFileContent, 0);
 	else dis_add_cmnd(fileContentName, "C", fileContentRoutine, 0);
 
-	if(requestConfigRoutine==NULL) dis_add_cmnd(requestConfigName, "I", stdDimRequestConfig, 0);
-	else dis_add_cmnd(requestConfigName, "I", requestConfigRoutine, 0);
+	if(requestConfigRoutine==NULL) dis_add_cmnd(requestConfigName, "C", stdDimRequestConfig, 0);
+	else dis_add_cmnd(requestConfigName, "C", requestConfigRoutine, 0);
 }
 
 /**
@@ -155,6 +155,7 @@ void moveToExpectedState() {
 	//Update the current state to the next expected state only if set (!=-1)
 	if(fNextState!=-1) setState(fNextState);
 	else setState(fState);
+	disableFileContent();
 }
 
 /**
@@ -169,14 +170,14 @@ void setNextState(int nextState) {
  * Publish the current configuration to dimServerName/Config.
  * The current configuration is requested to generateConfig (to be implemented by user)
  */
-void publishConfig(){
-	char ss[CONFIG_MAX_LENGTH];
+void publishConfig(char* path){
+	//char ss[CONFIG_MAX_LENGTH];
 
 	//Generate the config stream (implemented in derived class)
-	generateConfig(ss);
+	generateConfig(path);
 
 	//Put the config stream in the buffer
-	strcpy(fConfig, ss);
+	strcpy(fConfig, path);
 	if(fIsStarted==1) dis_update_service(fDimConfig);
 }
 
@@ -187,6 +188,7 @@ void publishConfig(){
  */
 void waitConfigurationFile(int expectedState) {
 	println("... Waiting for configuration file");
+	enableFileContent();
 	setNextState(expectedState);
 }
 

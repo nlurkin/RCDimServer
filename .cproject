@@ -22,16 +22,19 @@
 							<tool id="cdt.managedbuild.tool.gnu.archiver.base.1386075881" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.base.1579575511" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base">
 								<option id="gnu.cpp.compiler.option.include.paths.625059646" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/RCDimcpp/xmlproxy}&quot;"/>
-									<listOptionValue builtIn="false" value="/home/ncl/work/tdspylib/usr/xml"/>
 									<listOptionValue builtIn="false" value="/home/ncl/Software/Install/dim/dim"/>
+									<listOptionValue builtIn="false" value="/home/ncl/work/tdspylib/usr/xml"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/RCDimServer/xmlproxy}&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.optimization.level.1495028483" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.debugging.level.280257110" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.2146397000" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.base.2070679640" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.base">
-								<option id="gnu.c.compiler.option.include.paths.1391574577" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath"/>
+								<option id="gnu.c.compiler.option.include.paths.1391574577" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/home/ncl/Software/Install/dim/dim"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/RCDimServer/xmlproxy}&quot;"/>
+								</option>
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.option.optimization.level.1161154836" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.1367374604" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1805386956" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>

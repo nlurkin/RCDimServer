@@ -34,10 +34,10 @@ void doResetState(char tok[5][STRING_MAX_LENGTH]) {
 	setState(kIDLE);
 }
 
-void generateConfig(char* configString){
+void generateConfig(char* path){
 	centralizedLog(0, "Toto", 1, 0);
 	//Generate the current configuration stream using the same format as the input file.
-	sprintf(configString, "Configuration/Report/SubSystem/%s/report.xml", dimServerName);
+	//sprintf(configString, "Configuration/Report/SubSystem/%s/report.xml", dimServerName);
 
 	fConfigStruct->t->frequency = frequency;
 	fConfigStruct->t->param = param;
@@ -45,7 +45,7 @@ void generateConfig(char* configString){
 	fConfigStruct->t->uselessInt = uselessInt;
 	strcpy(fConfigStruct->t->uselessString, uselessString);
 
-	writeFile(configString, fConfigStruct);
+	writeFile(path, fConfigStruct);
 }
 
 int selectCommand(char commandName[STRING_MAX_LENGTH], char tok[5][STRING_MAX_LENGTH]){

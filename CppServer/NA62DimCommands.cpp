@@ -142,7 +142,6 @@ void Command::doResetState(std::vector<std::string> tok){
 void FileContent::commandHandler(){
 	bool success;
 
-	std::cout << true << " " << enabled << std::endl;
 	if(!enabled){
 		p->println("Ignoring FileContent");
 		return;
@@ -197,12 +196,14 @@ void FileContent::disable(){
  * Calls the publishConfig() method of the parent server.
  */
 void RequestConfig::commandHandler(){
-	p->print("RequestConfig port receiving: ");
-	p->println(getInt());
+	std::string path = getString();
 
-	if(getInt()==1){
+	p->print("RequestConfig port receiving: ");
+	p->println(path);
+
+	if(path.length()>0){
 		//Generate final configuration file
-		p->publishConfig();
+		p->publishConfig(path);
 	}
 	else{
 		p->println("Unexpected value received from RequestConfig port.");

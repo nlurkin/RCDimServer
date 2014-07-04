@@ -1,3 +1,11 @@
+Version 2.3.0 -04/07/2014
+	* RequestConfig takes a string (file path) as input argument, 
+	  should write the configuration at the path, and return a string in Config
+	  (the file path where the file has actually been written). 
+	  Input and output string should be the same.
+	* TestClient creates the directory for configuration file exchange
+	* TestClient remove any configuration file before writing/requesting a new one
+
 Version 2.2.0 - 18/06/2014
 	* Add a NA62_VERSION service
 	* Update services only if the server has already been started
