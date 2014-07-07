@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int fEnabled=1;
+int fEnabled=1;		/*!< Is the FileContent command enabled? */
 
 /**
  * @file commands.c
@@ -175,10 +175,26 @@ void stdDimFileContent(long* tag, char* cmnd_buffer, int*size){
 	}
 }
 
+/**
+ * FileContent enable
+ *
+ * Enable the file decoding upon reception. Use with disable().
+ *
+ * Even if the RunControl send a configuration file, if this command is
+ * in a "disabled" state it will not decode the file.
+ */
 void enableFileContent(){
 	fEnabled = 0;
 }
 
+/**
+ * FileContent disable
+ *
+ * Disable the file decoding upon reception. Use with enable().
+ *
+ * Even if the RunControl send a configuration file, if this command is
+ * in a "disabled" state it will not decode the file.
+ */
 void disableFileContent(){
 	fEnabled = 1;
 }

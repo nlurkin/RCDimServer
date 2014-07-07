@@ -75,7 +75,7 @@ void initCommands(char* dimServerName, void (*commandRoutine)(long int*,char*,in
  * exits when main_loop() returns 1.
  *
  * 4 services are created : dimServerName/State, dimServerName/Info, dimServerName/Logging and dimServerName/Config.
- * @param dimServer Name Name of the DIM server
+ * @param dimServerName Name of the DIM server
  * @param sourceID Source ID of the device
  */
 void startServer(char* dimServerName, int sourceID){

@@ -139,7 +139,7 @@ public:
 private:
 	void commandHandler();
 
-	bool enabled;
+	bool enabled;		/*!< Is the FileContent command enabled? */
 
 protected:
 	/**
@@ -156,10 +156,10 @@ protected:
  * Implement the RequestConfig dim command (dimServerName/RequestConfig).
  *
  * The default behavior is to call the publishConfig() method of the NA62DimServer.
- * This method will call the generateConfig() method that fills a stringstream
- * with the relevant information and that must be implemented by your derived
- * server class. publishConfig() will then publish the content of the stream in the
- * dimServerName/Config service.
+ * This method will call the generateConfig() method that will generate the file and write
+ * it at the path received by the RequestConfig command. publishConfig() will then publish
+ * the actual path where the file can be found (should be the same as the input path)
+ * in the dimServerName/Config service.
  *
  * The default behavior of this class should probably be enough as the device specific
  * implementation is done in the server part (generateConfig()).
@@ -172,7 +172,7 @@ public:
 	 * @param dimServerName Name of the dim server
 	 * @param parent Pointer to the parent dim server.
 	 */
-	RequestConfig(std::string dimServerName, NA62DimServer *parent):NA62DimCommand(dimServerName, "RequestConfig", "I", parent){};
+	RequestConfig(std::string dimServerName, NA62DimServer *parent):NA62DimCommand(dimServerName, "RequestConfig", "C", parent){};
 private:
 	void commandHandler();
 };

@@ -69,7 +69,7 @@ public:
 	 * to be published to dimServerName/Config and stored to condition database.
 	 *
 	 * To be implemented in the derived class.
-	 * @param ss stringstream to fill
+	 * @param path path were the file should be written
 	 */
 	virtual void generateConfig(std::string &path) = 0;
 	/**
