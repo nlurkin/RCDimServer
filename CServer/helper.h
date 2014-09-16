@@ -24,6 +24,7 @@ extern int fInfoIndex;
 extern int fSourceID;
 
 extern int fIsStarted;
+extern char fDimServerName[STRING_MAX_LENGTH];
 //###################
 
 #endif

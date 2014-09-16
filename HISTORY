@@ -1,3 +1,8 @@
+Version 2.3.1 -16/09/2014
+	* Patch the centralizedLog function to comply with the format expected by the
+	  central logging display. 
+	* The logging service has to have the same name as the server to be detected
+
 Version 2.3.0 -04/07/2014
 	* RequestConfig takes a string (file path) as input argument, 
 	  should write the configuration at the path, and return a string in Config

@@ -39,6 +39,8 @@ int fSourceID=0;	/*!< Source ID of the device */
 
 int fIsStarted=0;	/*!< Has the server already been started */
 
+char fDimServerName[STRING_MAX_LENGTH];		/*!< Name of the dim server */
+
 /**
  * Initialize the dim commands.
  *
@@ -67,6 +69,8 @@ void initCommands(char* dimServerName, void (*commandRoutine)(long int*,char*,in
 
 	if(requestConfigRoutine==NULL) dis_add_cmnd(requestConfigName, "C", stdDimRequestConfig, 0);
 	else dis_add_cmnd(requestConfigName, "C", requestConfigRoutine, 0);
+
+	strcpy(fDimServerName, dimServerName);
 }
 
 /**
@@ -85,9 +89,11 @@ void startServer(char* dimServerName, int sourceID){
 	char configName[CONFIG_MAX_LENGTH];
 	char versionName[CONFIG_MAX_LENGTH];
 
+	if(strlen(fDimServerName)==0) strcpy(fDimServerName, dimServerName);
+
 	sprintf(stateName, "%s/%s", dimServerName, "State");
 	sprintf(infoName, "%s/%s", dimServerName, "Info");
-	sprintf(loggingName, "%s/%s", dimServerName, "Logging");
+	sprintf(loggingName, "%s", dimServerName);
 	sprintf(configName, "%s/%s", dimServerName, "Config");
 	sprintf(versionName, "%s/%s", dimServerName, "NA62_VERSION");
 

@@ -272,22 +272,23 @@ void NA62DimServer::centralizedLog(int severity, std::string text, int priority,
 	std::stringstream ss;
 
 	time_t mtime = time(NULL);
-	char *time= ctime(&mtime);
+	struct tm *tmtime = localtime(&mtime);
+	char time[61];
+	strftime(time, 60, "%Y.%m.%d %H:%M:%S.111", tmtime);
 	int len = strlen(time);
 
-	time[len-1	] = '\0';
+	time[len] = '\0';
 	ss << "ErrTime:" << time << "<[|]>";
 	ss << "SysName:" << std::hex << fSourceID << "<[|]>";
 	ss << "Username:n/a<[|]>";
-	ss << "Manager:n/a<[|]>";
+	ss << "Manager:" << fDimServerName << "<[|]>";
 	ss << "DpId:n/a<[|]>";
-	ss << "ErrPrio:" << priority << "<[|]>";
+	ss << "ErrPrio:" << abs(severity-3) << "<[|]>";
 	ss << "ErrType:0<[|]>";
 	ss << "ErrCode:" << errCode << "<[|]>";
 	ss << "ErrText:" << text << "<[|]>" << std::endl;
 
-	//ss << "ErrTime:2014.03.20 09:34:39.035<[|]>SysName:dist_5<[|]>Username:n/a<[|]>Manager:WCCILdatabg  (1)<[|]>DpId:-2<[|]>ErrPrio:3<[|]>ErrType:2<[|]>ErrCode:6<[|]>ErrText:Initialization by Data Manager finished<[|]>";
-
+	//ss << "SysName:dist_5<[|]>Username:root<[|]>Manager:WCCILevent   (0)<[|]>DpId:-2<[|]>ErrPrio:2<[|]>ErrType:0<[|]>ErrCode:54<[|]>ErrText:Unexpected state, statFunc work: , dist_1:_mp_COUNTER_SUB.C1.SUM, Omitted 7 periods in calculation<[|]>" << std::endl;
 	strcpy(fLogging,ss.str().c_str());
 	if(fIsStarted) fDimLogging->updateService();
 }

@@ -19,7 +19,7 @@ fParam(0)
 	//Replace the default FileContent command with  the TestFileContent one.
 	initCommands(new TestCommand(getDimServerName(), this), new TestFileContent(getDimServerName(), this), NULL);
 
-	centralizedLog(0, "Starting server", 1);
+	centralizedLog(0, "Starting server", 0);
 	NA62DimServer::fConfigStruct = new TestNode;
 }
 
@@ -67,7 +67,6 @@ void TestServer::mainLoop()
 }
 
 void TestServer::generateConfig(std::string& path) {
-	centralizedLog(0, "Toto", 1);
 	TestNode *t = (TestNode*)NA62DimServer::fConfigStruct;
 
 	//ss << "Configuration/Report/SubSystem/" << getDimServerName() << "/report.xml";

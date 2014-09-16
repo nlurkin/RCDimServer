@@ -8,6 +8,7 @@
 #include <string.h>
 #include "helper.h"
 #include "dis.h"
+#include <stdlib.h>
 
 /**
  * @file helper.c
@@ -72,7 +73,9 @@ void centralizedLog(int severity, char* text, int priority, int errCode)
 	char numValue[10];
 
 	time_t mtime = time(NULL);
-	char *time= ctime(&mtime);
+	struct tm *tmtime = localtime(&mtime);
+	char time[61];
+        strftime(time, 60, "%Y.%m.%d %H:%M:%S.111", tmtime);
 
 	strcpy(str, "ErrTime:");
 	strcat(str, time);
@@ -82,10 +85,12 @@ void centralizedLog(int severity, char* text, int priority, int errCode)
 	strcat(str, numValue);
 	strcat(str, "<[|]>");
 	strcat(str, "Username:n/a<[|]>");
-	strcat(str, "Manager:n/a<[|]>");
+	strcat(str, "Manager:");
+	strcat(str, fDimServerName);
+	strcat(str, "<[|]>");
 	strcat(str, "DpId:n/a<[|]>");
 	strcat(str, "ErrPrio:");
-	sprintf(numValue, "%i", priority);
+	sprintf(numValue, "%i", abs(severity-3));
 	strcat(str, numValue);
 	strcat(str, "<[|]>");
 	strcat(str, "ErrType:0<[|]>");
