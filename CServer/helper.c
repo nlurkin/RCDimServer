@@ -20,6 +20,10 @@
  * and append to the dimServerName/Info buffer without updating the service (wait for more data).
  * @param s value to append
  */
+void printNoOut(const char * s){
+	strcpy(fInfo+fInfoIndex, s);
+	fInfoIndex+=strlen(s);
+}
 void print(const char * s){
 	printf("%s",s);
 	strcpy(fInfo+fInfoIndex, s);
@@ -30,6 +34,11 @@ void print(const char * s){
  * and append to the dimServerName/Info buffer without updating the service (wait for more data).
  * @param s value to append
  */
+void printiNoOut(int s){
+	char dest[STRING_MAX_LENGTH];
+	sprintf(dest,"%i", s);
+	printNoOut(dest);
+}
 void printi(int s){
 	char dest[STRING_MAX_LENGTH];
 	sprintf(dest,"%i", s);
@@ -40,8 +49,15 @@ void printi(int s){
  * and append to the dimServerName/Info buffer and update the service.
  * @param s value to append
  */
+void printlnNoOut(const char *s){
+	strcpy(fInfo+fInfoIndex, s);
+	fInfo[fInfoIndex+strlen(s)] = '\n';
+	fInfo[fInfoIndex+strlen(s)+1] = '\0';
+	fInfoIndex = 0;
+	if(fIsStarted==1) dis_update_service(fDimInfo);
+}
 void println(const char *s){
-	printf("%s\n",s);
+        printf("%s\n",s);
 	strcpy(fInfo+fInfoIndex, s);
 	fInfo[fInfoIndex+strlen(s)] = '\n';
 	fInfo[fInfoIndex+strlen(s)+1] = '\0';
@@ -53,6 +69,11 @@ void println(const char *s){
  * and append to the dimServerName/Info buffer and update the service.
  * @param s value to append
  */
+void printlniNoOut(int s){
+	char dest[STRING_MAX_LENGTH];
+	sprintf(dest,"%i", s);
+	printlnNoOut(dest);
+}
 void printlni(int s){
 	char dest[STRING_MAX_LENGTH];
 	sprintf(dest,"%i", s);

@@ -10,6 +10,13 @@ void print(const char * s);
 void printi(int s);
 void println(const char *s);
 void printlni(int s);
+
+
+void printNoOut(const char * s);
+void printiNoOut(int s);
+void printlnNoOut(const char *s);
+void printlniNoOut(int s);
+
 void centralizedLog(int severity, char* text, int priority, int errCode);
 
 //###################
