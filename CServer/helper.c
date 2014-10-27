@@ -20,18 +20,59 @@
  * and append to the dimServerName/Info buffer without updating the service (wait for more data).
  * @param s value to append
  */
-void printNoOut(const char * s){
-	strcpy(fInfo+fInfoIndex, s);
-	fInfoIndex+=strlen(s);
-}
 void print(const char * s){
 	printf("%s",s);
 	strcpy(fInfo+fInfoIndex, s);
 	fInfoIndex+=strlen(s);
 }
+
 /**
  * Output to cout without endline and without flushing
  * and append to the dimServerName/Info buffer without updating the service (wait for more data).
+ * @param s value to append
+ */
+void printi(int s){
+	char dest[STRING_MAX_LENGTH];
+	sprintf(dest,"%i", s);
+	print(dest);
+}
+
+/**
+ * Output to cout with endline (and flush the stream)
+ * and append to the dimServerName/Info buffer and update the service.
+ * @param s value to append
+ */
+void println(const char *s){
+        printf("%s\n",s);
+	strcpy(fInfo+fInfoIndex, s);
+	fInfo[fInfoIndex+strlen(s)] = '\n';
+	fInfo[fInfoIndex+strlen(s)+1] = '\0';
+	fInfoIndex = 0;
+	if(fIsStarted==1) dis_update_service(fDimInfo);
+}
+
+/**
+ * Output to cout with endline (and flush the stream)
+ * and append to the dimServerName/Info buffer and update the service.
+ * @param s value to append
+ */
+void printlni(int s){
+	char dest[STRING_MAX_LENGTH];
+	sprintf(dest,"%i", s);
+	println(dest);
+}
+
+/**
+ * Append to the dimServerName/Info buffer without updating the service (wait for more data).
+ * @param s value to append
+ */
+void printNoOut(const char * s){
+	strcpy(fInfo+fInfoIndex, s);
+	fInfoIndex+=strlen(s);
+}
+
+/**
+ * Append to the dimServerName/Info buffer without updating the service (wait for more data).
  * @param s value to append
  */
 void printiNoOut(int s){
@@ -39,14 +80,9 @@ void printiNoOut(int s){
 	sprintf(dest,"%i", s);
 	printNoOut(dest);
 }
-void printi(int s){
-	char dest[STRING_MAX_LENGTH];
-	sprintf(dest,"%i", s);
-	print(dest);
-}
+
 /**
- * Output to cout with endline (and flush the stream)
- * and append to the dimServerName/Info buffer and update the service.
+ * Append to the dimServerName/Info buffer and update the service.
  * @param s value to append
  */
 void printlnNoOut(const char *s){
@@ -56,17 +92,9 @@ void printlnNoOut(const char *s){
 	fInfoIndex = 0;
 	if(fIsStarted==1) dis_update_service(fDimInfo);
 }
-void println(const char *s){
-        printf("%s\n",s);
-	strcpy(fInfo+fInfoIndex, s);
-	fInfo[fInfoIndex+strlen(s)] = '\n';
-	fInfo[fInfoIndex+strlen(s)+1] = '\0';
-	fInfoIndex = 0;
-	if(fIsStarted==1) dis_update_service(fDimInfo);
-}
+
 /**
- * Output to cout with endline (and flush the stream)
- * and append to the dimServerName/Info buffer and update the service.
+ * Append to the dimServerName/Info buffer and update the service.
  * @param s value to append
  */
 void printlniNoOut(int s){
@@ -74,11 +102,7 @@ void printlniNoOut(int s){
 	sprintf(dest,"%i", s);
 	printlnNoOut(dest);
 }
-void printlni(int s){
-	char dest[STRING_MAX_LENGTH];
-	sprintf(dest,"%i", s);
-	println(dest);
-}
+
 
 /**
  * Output an entry in the centralized logging display according to the standard format.

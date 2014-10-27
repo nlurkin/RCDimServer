@@ -47,6 +47,13 @@ public:
 	void println(std::string s);
 	void println(int s);
 
+	void printNoOut(const char *s);
+	void printNoOut(std::string s);
+	void printNoOut(int s);
+	void printlnNoOut(const char *s);
+	void printlnNoOut(std::string s);
+	void printlnNoOut(int s);
+
 	//Logging
 	void centralizedLog(int severity, std::string text, int priority=0, int errCode=0);
 

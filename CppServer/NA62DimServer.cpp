@@ -179,6 +179,66 @@ void NA62DimServer::println(int s){
 }
 
 /**
+ * Append to the dimServerName/Info buffer without updating the service (wait for more data).
+ * @param s value to append
+ */
+void NA62DimServer::printNoOut(const char * s){
+	//Append the message to the info buffer after the current index.
+	strcpy(fInfo+fInfoIndex, s);
+	fInfoIndex+=strlen(s);
+}
+/**
+ * Append to the dimServerName/Info buffer without updating the service (wait for more data).
+ * @param s value to append
+ */
+void NA62DimServer::printNoOut(std::string s){
+	printNoOut(s.c_str());
+}
+/**
+ * Append to the dimServerName/Info buffer without updating the service (wait for more data).
+ * @param s value to append
+ */
+void NA62DimServer::printNoOut(int s){
+	std::ostringstream ss;
+	ss << s;
+	printNoOut(ss.str());
+}
+/**
+ * Append to the dimServerName/Info buffer and update the service.
+ * @param s value to append
+ */
+void NA62DimServer::printlnNoOut(const char *s){
+	//Append the message at the current index
+	strcpy(fInfo+fInfoIndex, s);
+
+	//Append the end of line and end of string
+	fInfo[fInfoIndex+strlen(s)] = '\n';
+	fInfo[fInfoIndex+strlen(s)+1] = '\0';
+
+	//Reset the current index
+	fInfoIndex = 0;
+
+	//Update the service
+	if(fIsStarted) fDimInfo->updateService();
+}
+/**
+ * Append to the dimServerName/Info buffer and update the service.
+ * @param s value to append
+ */
+void NA62DimServer::printlnNoOut(std::string s){
+	printlnNoOut(s.c_str());
+}
+/**
+ * Append to the dimServerName/Info buffer and update the service.
+ * @param s value to append
+ */
+void NA62DimServer::printlnNoOut(int s){
+	std::ostringstream ss;
+	ss << s;
+	printlnNoOut(ss.str());
+}
+
+/**
  *
  * @return The current Run Number
  */
