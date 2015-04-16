@@ -11,14 +11,14 @@ RCDimCpp: ../RCDimCpp
 libcppserver.so: ../libcppserver.so
 
 # Tool invocations
-../RCDimCpp: $(CppServerOBJ) $(xmlproxyDIR)/xmlconfig_TestNode.h $(xmlproxyOBJ)
-	$(CC) -o $@ $^ $(CFLAGS) $(LIBSDIR) $(LIBS) -lcppserver 
+../RCDimCpp: $(CppServerOBJ) $(xmlproxyDIR)/TestNodeProxy.h $(xmlproxyOBJ)
+	$(CC) -o $@ $(CppServerOBJ) $(xmlproxyOBJ) $(CFLAGS) $(LIBSDIR) $(LIBS) -lcppserver 
 
 $(OBJDIR)/%.o: %.cpp %.h ../Version.h
 	@mkdir -p $(OBJDIR)
 	$(CC) -o $@ -c $< $(CFLAGS) $(HDRDIR)
 	
-$(OBJDIR)/%Proxy.o: $(xmlproxyDIR)/%Proxy.cpp $(xmlproxyDIR)/xmlconfig_%.h
+$(OBJDIR)/%Proxy.o: $(xmlproxyDIR)/%Proxy.cc $(xmlproxyDIR)/%Proxy.h
 	@mkdir -p $(OBJDIR)
 	$(CC) -o $@ -c $< $(CFLAGS) $(HDRDIR)
 

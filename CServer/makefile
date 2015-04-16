@@ -12,8 +12,8 @@ RCDimC: libcserver.so ../RCDimC
 
 libcserver.so: ../libcserver.so
 
-../RCDimC: $(CServerOBJ) $(xmlproxyDIR)/xmlconfig_TestNode.h $(xmlproxyOBJ)
-	$(CCC) -o $@ $^ $(CFLAGS) $(LIBSDIR) $(LIBS) -lcserver
+../RCDimC: $(CServerOBJ) $(xmlproxyDIR)/TestNodeProxy.h $(xmlproxyOBJ)
+	$(CC) -o $@ $(CServerOBJ) $(xmlproxyOBJ) $(CFLAGS) $(LIBSDIR) $(LIBS) -lcserver
 
 ../libcserver.so: $(CLibOBJ)
 	$(CCC) $(SOFLAGS) -Wl,-soname,libcserver.so -o $@ $^ $(CFLAGS)

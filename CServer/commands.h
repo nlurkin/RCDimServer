@@ -1,6 +1,8 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+struct configStruct_t;
+
 void doStdInitialize(char tok[5][STRING_MAX_LENGTH]);
 void doStdStartRun(char tok[5][STRING_MAX_LENGTH]);
 void doStdEndRun(char tok[5][STRING_MAX_LENGTH]);

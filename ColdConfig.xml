@@ -1,4 +1,4 @@
-<node>
+<TestNode>
 	<version>100</version>
 	<uselessInt>5</uselessInt>
 	<param>10</param>
@@ -7,5 +7,5 @@
 	<uselessString>
 		<readable_string>toto</readable_string>
 	</uselessString>
-</node>
+</TestNode>
 

@@ -8,7 +8,7 @@
 #include "decoder.h"
 #include <stdlib.h>
 #include <string.h>
-#include "xmlconfig_TestNode.h"
+#include "TestNodeProxy.h"
 #include <stdio.h>
 
 int parseFile(char *content, struct configStruct_t *s){
@@ -20,7 +20,9 @@ int parseFile(char *content, struct configStruct_t *s){
 		decodeLine(lines[i]);
 	}*/
 
-	inxmlfile_TestNode(s->t,"toto", content);
+	printf("%i\n", s->t->version);
+	apply_TestNode(s->t, content);
+	printf("%i\n", s->t->version);
 	return 0;
 }
 
@@ -33,7 +35,7 @@ int writeFile(char *content, struct configStruct_t *s){
 		decodeLine(lines[i]);
 	}*/
 
-	outxmlfile_TestNode((void*)s->t, "toto", content);
+	create_TestNode(s->t, content);
 	return 0;
 }
 

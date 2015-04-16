@@ -12,7 +12,7 @@
 #include <algorithm>
 #include <sstream>
 #include <fstream>
-#include "xmlconfig_TestNode.h"
+#include "TestNodeProxy.h"
 
 ConfigDecoder::ConfigDecoder(){
 }
@@ -25,11 +25,11 @@ void ConfigDecoder::parseFile(std::string content, TestNode *s){
 	//myfile.open ("receivedfile.xml");
 	//myfile << content;
 	//myfile.close();
-	inxmlfile_TestNode(s,"toto", (char*)content.c_str());
+	apply_TestNode(s, content.data());
 }
 
 void ConfigDecoder::writeFile(std::string content, TestNode *s){
-	outxmlfile_TestNode((void*)s, "toto", (char*)content.c_str());
+	create_TestNode(s, content.data());
 }
 
 /*void ConfigDecoder::decodeLine(std::string line, TestNode *s){

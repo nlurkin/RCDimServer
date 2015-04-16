@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "TestNode.h"
-#include "xmlconfig_TestNode.h" /* include file prepared by the xmlpp preprocessor */
+#include "TestNodeProxy.h" /* include file prepared by the xmlpp preprocessor */
 
 int main(){	
 	
@@ -17,12 +17,12 @@ int main(){
 
     node.version=TestNode_VERSION;
     
-    OUTXMLFILE_TestNode(node, "ColdConfig.xml");  //macro defined in xmlconfig_Node.h
+    create_TestNode(&node, "ColdConfig.xml");  //macro defined in xmlconfig_Node.h
 
     node.param=15;
     node.frequency=2000.2;
 
-    OUTXMLFILE_TestNode(node, "WarmConfig.xml");  //macro defined in xmlconfig_Node.h
+    create_TestNode(&node, "WarmConfig.xml");  //macro defined in xmlconfig_Node.h
 	
     return 0;
 }
