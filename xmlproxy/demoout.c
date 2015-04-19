@@ -2,7 +2,11 @@
 #include <string.h>
 #include <stdlib.h>
 #include "TestNode.h"
-#include "TestNodeProxy.h" /* include file prepared by the xmlpp preprocessor */
+#ifdef USE_XMLCONFIG
+#include "xmlconfig_TestNode.h"
+#else
+#include "TestNodeProxy.h"
+#endif
 
 int main(){	
 	
@@ -17,12 +21,21 @@ int main(){
 
     node.version=TestNode_VERSION;
     
-    xml_create_TestNode(&node, "ColdConfig.xml");  //macro defined in xmlconfig_Node.h
+	#ifdef USE_XMLCONFIG
+    OUTXMLFILE_TestNode(node, "ColdConfig.xml");  //Using xmlconfig
+	#else
+    xml_create_TestNode(&node, "ColdConfig.xml");  //Using XMLPreProcessor
+	#endif
 
     node.param=15;
     node.frequency=2000.2;
 
-    xml_create_TestNode(&node, "WarmConfig.xml");  //macro defined in xmlconfig_Node.h
+	#ifdef USE_XMLCONFIG
+    OUTXMLFILE_TestNode(node, "WarmConfig.xml");  //Using xmlconfig
+	#else
+    xml_create_TestNode(&node, "WarmConfig.xml");  //Using XMLPreProcessor
+	#endif
+
 	
     return 0;
 }

@@ -4,12 +4,38 @@ xmlproxyDIR = ../xmlproxy
 xmlproxySRC = TestNodeProxy
 xmlproxyOBJ = $(addprefix $(OBJDIR)/,$(addsuffix .o,$(xmlproxySRC)))
 
-LIBS = -lpthread -ldim -lxml2 -lxmlpreprocessor
-LIBSDIR = -L$(DIMDIR)/linux -L../ -L$(XMLPROXY)/XMLConf
-HDRDIR = -I$(DIMDIR)/dim -I$(XMLPROXY)/XMLConf -I../xmlproxy -I.. -I/usr/include/libxml2
+WHICHXML = XMLPreProcessor
+#WHICHXML = xmlconfig
+
+ifeq ($(WHICHXML),XMLPreProcessor)
+	XMLSCRIPT = xmlpp.py
+	XMLOPTION =  --struct TestNode
+else
+	XMLSCRIPT = xmlpp
+	XMLOPTION =
+endif
+
+LIBS = -lpthread -ldim
+LIBSDIR = -L$(DIMDIR)/linux -L../
+HDRDIR = -I$(DIMDIR)/dim -I../xmlproxy -I..
+
+ifeq ($(WHICHXML),XMLPreProcessor)
+	LIBS += -lxml2 -lxmlpreprocessor
+	LIBSDIR += -L$(XMLPROXY)/XMLConf
+	HDRDIR += -I$(XMLPROXY)/XMLConf -I/usr/include/libxml2
+else
+	LIBS += -lboost_serialization
+	HDRDIR += -I$(XMLPROXY)
+endif
 
 #COMPILER
-CFLAGS		= -O -Wall -fPIC -g3 -std=c++11
+CFLAGS		= -O -Wall -fPIC -g3
+CPPFLAGS	= -O -Wall -fPIC -g3 -std=c++11
 SOFLAGS		= -shared
 CC			= g++
 CCC			= gcc
+
+ifeq ($(WHICHXML),xmlconfig)
+	CFLAGS += -DUSE_XMLCONFIG=1
+	CPPFLAGS += -DUSE_XMLCONFIG=1
+endif

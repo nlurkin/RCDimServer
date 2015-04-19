@@ -8,8 +8,12 @@
 #include "decoder.h"
 #include <stdlib.h>
 #include <string.h>
-#include "TestNodeProxy.h"
 #include <stdio.h>
+#ifdef USE_XMLCONFIG
+#include "xmlconfig_TestNode.h"
+#else
+#include "TestNodeProxy.h"
+#endif
 
 int parseFile(char *content, struct configStruct_t *s){
 	/*char lines[10][STRING_MAX_LENGTH];
@@ -19,7 +23,10 @@ int parseFile(char *content, struct configStruct_t *s){
 	for(i=0; i<linesNb; i++){
 		decodeLine(lines[i]);
 	}*/
-
+	#ifdef USE_XMLCONFIG
+	inxmlfile_TestNode(s->t,"toto", content);
+	return 0;
+	#else
 	printf("%i\n", s->t->version);
 	if(xml_read_file_TestNode(content)==-1) printf("Error: %s\n", xml_getLastFatalError_TestNode());
 	else{
@@ -28,6 +35,7 @@ int parseFile(char *content, struct configStruct_t *s){
 		return ret>0;
 	}
 	return -1;
+	#endif
 }
 
 int writeFile(char *content, struct configStruct_t *s){
@@ -39,7 +47,11 @@ int writeFile(char *content, struct configStruct_t *s){
 		decodeLine(lines[i]);
 	}*/
 
+	#ifdef USE_XMLCONFIG
+	outxmlfile_TestNode((void*)s->t, "toto", content);
+	#else
 	xml_create_TestNode(s->t, content);
+	#endif
 	return 0;
 }
 

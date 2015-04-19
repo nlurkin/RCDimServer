@@ -12,7 +12,12 @@
 #include <algorithm>
 #include <sstream>
 #include <fstream>
+#ifdef USE_XMLCONFIG
+#include "xmlconfig_TestNode.h"
+#else
 #include "TestNodeProxy.h"
+#endif
+
 
 ConfigDecoder::ConfigDecoder(){
 }
@@ -25,15 +30,27 @@ bool ConfigDecoder::parseFile(std::string content, TestNode *s){
 	//myfile.open ("receivedfile.xml");
 	//myfile << content;
 	//myfile.close();
+
+	#ifdef USE_XMLCONFIG
+	inxmlfile_TestNode(s,"toto", (char*)content.c_str());
+	return true;
+	#else
 	if(xml_read_file_TestNode(content.data())==-1) std::cout << "Error: " << xml_getLastFatalError_TestNode() << std::endl;
 	else{
 		return xml_apply_TestNode(s)>0;
 	}
 	return false;
+	#endif
+	
 }
 
 bool ConfigDecoder::writeFile(std::string content, TestNode *s){
-	return xml_create_TestNode(s, content.data())>0;
+	#ifdef USE_XMLCONFIG
+	outxmlfile_TestNode((void*)s, "toto", (char*)content.c_str());
+	return true;
+	#else
+	return xml_create_TestNode(s, content.data())>0; //Using XMLPreProcessor
+	#endif
 }
 
 /*void ConfigDecoder::decodeLine(std::string line, TestNode *s){

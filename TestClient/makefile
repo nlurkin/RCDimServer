@@ -8,15 +8,15 @@ all: testClient
 testClient:../testClient
 
 ../testClient: $(TestClientOBJ)
-	$(CC) -o $@ $^ $(CFLAGS) $(LIBSDIR) $(LIBS)
+	$(CC) -o $@ $^ $(CPPFLAGS) $(LIBSDIR) $(LIBS)
 
 $(OBJDIR)/%.o: %.cpp %.h
 	@mkdir -p $(OBJDIR)
-	$(CC) -o $@ -c $< $(CFLAGS) $(HDRDIR)
+	$(CC) -o $@ -c $< $(CPPFLAGS) $(HDRDIR)
 
 $(OBJDIR)/%TestClient.o: main.cpp
 	@mkdir -p $(OBJDIR)
-	$(CC) -o $@ -c $< $(CFLAGS) $(HDRDIR)
+	$(CC) -o $@ -c $< $(CPPFLAGS) $(HDRDIR)
 
 
 	

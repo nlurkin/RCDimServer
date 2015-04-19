@@ -5,6 +5,11 @@ CLibOBJ  = $(addprefix $(OBJDIR)/,$(addsuffix .o,$(CLibSRC)))
 CServerSRC = mainCServer decoder
 CServerOBJ = $(addprefix $(OBJDIR)/,$(addsuffix .o,$(CServerSRC)))
 
+ifeq ($(WHICHXML),XMLPreProcessor)
+	XMLHEADER = TestNodeProxy.h
+else
+	XMLHEADER = xmlconfig_TestNode.h
+endif
 
 all: RCDimC libcserver.so
 
@@ -12,8 +17,8 @@ RCDimC: libcserver.so ../RCDimC
 
 libcserver.so: ../libcserver.so
 
-../RCDimC: $(CServerOBJ) $(xmlproxyDIR)/TestNodeProxy.h $(xmlproxyOBJ)
-	$(CC) -o $@ $(CServerOBJ) $(xmlproxyOBJ) $(CFLAGS) $(LIBSDIR) $(LIBS) -lcserver
+../RCDimC: $(CServerOBJ) $(xmlproxyDIR)/$(XMLHEADER) $(xmlproxyOBJ)
+	$(CCC) -o $@ $(CServerOBJ) $(xmlproxyOBJ) $(CFLAGS) $(LIBSDIR) $(LIBS) -lcserver
 
 ../libcserver.so: $(CLibOBJ)
 	$(CCC) $(SOFLAGS) -Wl,-soname,libcserver.so -o $@ $^ $(CFLAGS)
