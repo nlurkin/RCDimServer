@@ -1,3 +1,6 @@
+Version 2.4.0 -19/04/2015
+	* Give possibility in example to use either xmlconfig or XMLPreProcessor
+
 Version 2.3.1 -16/09/2014
 	* Patch the centralizedLog function to comply with the format expected by the
 	  central logging display. 
