@@ -7,7 +7,7 @@ all: TestNodeProxy.h $(OBJDIR)/TestNodeProxy.o demo
 
 TestNodeProxy.h:
 	@echo "Doing XML"
-	$(XMLPROXY)/xmlpp.py TestNode.h TestNode
+	$(XMLPROXY)/xmlpp.py TestNode.h --struct TestNode
 
 $(OBJDIR)/%Proxy.o: %Proxy.cc %Proxy.h
 	@mkdir -p $(OBJDIR)

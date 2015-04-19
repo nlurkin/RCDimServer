@@ -17,12 +17,12 @@ int main(){
 
     node.version=TestNode_VERSION;
     
-    create_TestNode(&node, "ColdConfig.xml");  //macro defined in xmlconfig_Node.h
+    xml_create_TestNode(&node, "ColdConfig.xml");  //macro defined in xmlconfig_Node.h
 
     node.param=15;
     node.frequency=2000.2;
 
-    create_TestNode(&node, "WarmConfig.xml");  //macro defined in xmlconfig_Node.h
+    xml_create_TestNode(&node, "WarmConfig.xml");  //macro defined in xmlconfig_Node.h
 	
     return 0;
 }

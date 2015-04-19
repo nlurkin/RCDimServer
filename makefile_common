@@ -5,11 +5,11 @@ xmlproxySRC = TestNodeProxy
 xmlproxyOBJ = $(addprefix $(OBJDIR)/,$(addsuffix .o,$(xmlproxySRC)))
 
 LIBS = -lpthread -ldim -lxml2 -lxmlpreprocessor
-LIBSDIR = -L$(DIMDIR)/linux -L../ -L$(XMLPROXY)
-HDRDIR = -I$(DIMDIR)/dim -I$(XMLPROXY) -I../xmlproxy -I.. -I/usr/include/libxml2
+LIBSDIR = -L$(DIMDIR)/linux -L../ -L$(XMLPROXY)/XMLConf
+HDRDIR = -I$(DIMDIR)/dim -I$(XMLPROXY)/XMLConf -I../xmlproxy -I.. -I/usr/include/libxml2
 
 #COMPILER
-CFLAGS		= -O -Wall -fPIC -g3 -DXML=1
+CFLAGS		= -O -Wall -fPIC -g3 -std=c++11
 SOFLAGS		= -shared
 CC			= g++
 CCC			= gcc

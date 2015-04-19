@@ -21,9 +21,13 @@ int parseFile(char *content, struct configStruct_t *s){
 	}*/
 
 	printf("%i\n", s->t->version);
-	apply_TestNode(s->t, content);
-	printf("%i\n", s->t->version);
-	return 0;
+	if(xml_read_file_TestNode(content)==-1) printf("Error: %s\n", xml_getLastFatalError_TestNode());
+	else{
+		int ret = xml_apply_TestNode(s->t);
+		printf("%i\n", s->t->version);
+		return ret>0;
+	}
+	return -1;
 }
 
 int writeFile(char *content, struct configStruct_t *s){
@@ -35,7 +39,7 @@ int writeFile(char *content, struct configStruct_t *s){
 		decodeLine(lines[i]);
 	}*/
 
-	create_TestNode(s->t, content);
+	xml_create_TestNode(s->t, content);
 	return 0;
 }
 

@@ -20,16 +20,20 @@ ConfigDecoder::ConfigDecoder(){
 ConfigDecoder::~ConfigDecoder() {
 }
 
-void ConfigDecoder::parseFile(std::string content, TestNode *s){
+bool ConfigDecoder::parseFile(std::string content, TestNode *s){
 	//std::ofstream myfile;
 	//myfile.open ("receivedfile.xml");
 	//myfile << content;
 	//myfile.close();
-	apply_TestNode(s, content.data());
+	if(xml_read_file_TestNode(content.data())==-1) std::cout << "Error: " << xml_getLastFatalError_TestNode() << std::endl;
+	else{
+		return xml_apply_TestNode(s)>0;
+	}
+	return false;
 }
 
-void ConfigDecoder::writeFile(std::string content, TestNode *s){
-	create_TestNode(s, content.data());
+bool ConfigDecoder::writeFile(std::string content, TestNode *s){
+	return xml_create_TestNode(s, content.data())>0;
 }
 
 /*void ConfigDecoder::decodeLine(std::string line, TestNode *s){
