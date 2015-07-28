@@ -1,3 +1,6 @@
+Version 2.4.1 -27/07/2015
+    * Send report path with STARTRUN and ENDRUN commands
+
 Version 2.4.0 -19/04/2015
 	* Give possibility in example to use either xmlconfig or XMLPreProcessor
 

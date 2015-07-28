@@ -14,6 +14,6 @@ typedef struct NA62Version {
 	const int fPatch;
 } NA62Version_t;
 
-static NA62Version_t server_version = {2,4,0};
+static NA62Version_t server_version = {2,4,1};
 
 #endif /* VERSION_H_ */

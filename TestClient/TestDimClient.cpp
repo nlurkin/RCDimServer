@@ -98,7 +98,20 @@ void TestDimClient::handleLogging(string s) {
 //}
 
 void TestDimClient::initialize(){
-	sendCommand((dimServerName + "/Command").c_str(), "initialize muons");
+	std::stringstream path;
+	path << "initialize muons" << " Configuration/Report/SubSystem/" << dimServerName;
+
+	if(!exists_(path.str())){
+		mkdir_("Configuration");
+		mkdir_("Configuration/Report");
+		mkdir_("Configuration/Report/SubSytem");
+		mkdir_(path.str());
+	}
+
+	path << "/report.xml";
+	if(exists_(path.str())) rm_(path.str());
+
+	sendCommand((dimServerName + "/Command").c_str(), path.str().c_str());
 
 	//modifyTransferStatus(kSTARTED);
 	//sendNextFile();
@@ -106,7 +119,20 @@ void TestDimClient::initialize(){
 }
 
 void TestDimClient::startrun() {
-	sendCommand((dimServerName + "/Command").c_str(), "startrun 1");
+	std::stringstream path;
+	path << "startrun 1" << " Configuration/Report/SubSystem/" << dimServerName;
+
+	if(!exists_(path.str())){
+		mkdir_("Configuration");
+		mkdir_("Configuration/Report");
+		mkdir_("Configuration/Report/SubSytem");
+		mkdir_(path.str());
+	}
+
+	path << "/report.xml";
+	if(exists_(path.str())) rm_(path.str());
+
+	sendCommand((dimServerName + "/Command").c_str(), path.str().c_str());
 	sendFile(warmFileName);
 }
 
